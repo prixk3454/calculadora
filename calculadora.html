@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora Oscura</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #1a1a1a;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .calculadora {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .pantalla {
+            background: #1a1a1a;
+            color: #00ff9d;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 24px;
+        }
+
+        .botones {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            background: #3d3d3d;
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #4d4d4d;
+        }
+
+        .operador {
+            background: #ff9500;
+        }
+
+        .igual {
+            background: #00c8ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculadora">
+        <div class="pantalla" id="pantalla">0</div>
+        <div class="botones">
+            <button onclick="borrarTodo()">C</button>
+            <button onclick="borrarUltimo()">←</button>
+            <button class="operador" onclick="agregarCaracter('/')">/</button>
+            <button class="operador" onclick="agregarCaracter('*')">×</button>
+            <button onclick="agregarCaracter('7')">7</button>
+            <button onclick="agregarCaracter('8')">8</button>
+            <button onclick="agregarCaracter('9')">9</button>
+            <button class="operador" onclick="agregarCaracter('-')">-</button>
+            <button onclick="agregarCaracter('4')">4</button>
+            <button onclick="agregarCaracter('5')">5</button>
+            <button onclick="agregarCaracter('6')">6</button>
+            <button class="operador" onclick="agregarCaracter('+')">+</button>
+            <button onclick="agregarCaracter('1')">1</button>
+            <button onclick="agregarCaracter('2')">2</button>
+            <button onclick="agregarCaracter('3')">3</button>
+            <button class="igual" onclick="calcular()" style="grid-row: span 2">=</button>
+            <button onclick="agregarCaracter('0')" style="grid-column: span 2">0</button>
+            <button onclick="agregarCaracter('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        let pantalla = document.getElementById('pantalla');
+        let operacion = '';
+
+        function agregarCaracter(caracter) {
+            operacion += caracter;
+            pantalla.textContent = operacion;
+        }
+
+        function calcular() {
+            try {
+                operacion = eval(operacion).toString();
+                pantalla.textContent = operacion;
+            } catch {
+                pantalla.textContent = 'Error';
+                operacion = '';
+            }
+        }
+
+        function borrarTodo() {
+            operacion = '';
+            pantalla.textContent = '0';
+        }
+
+        function borrarUltimo() {
+            operacion = operacion.slice(0, -1);
+            pantalla.textContent = operacion || '0';
+        }
+    </script>
+</body>
+</html>
